@@ -33,7 +33,7 @@ df_table = df_table[1:]
 # df_table = df_table.set_index('')
 
 
-db_host = "localhost"
+db_host = "192.168.1.223"
 db_name = "reliance"
 db_user = "docker"
 db_password = "docker"
