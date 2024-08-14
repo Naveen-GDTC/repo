@@ -25,7 +25,21 @@ with open("table_data.csv", 'w', newline='') as file:
 
 
 df_table = pd.DataFrame(table_data)
+df_table.iloc[0,0] = 'Section'
 df_table.columns = df_table.iloc[0]
 df_table = df_table[1:]
-df_table = df_table.set_index('')
-df_table
+# df_table = df_table.set_index('')
+
+
+db_host = "localhost"
+db_name = "reliance"
+db_user = "docker"
+db_password = "docker"
+db_port = "5432"
+
+engine = create_engine(f'postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
+
+# Load the DataFrame into the PostgreSQL database
+df_table.to_sql('profit_loss_data', engine, if_exists='replace', index=False)
+
+print("Data loaded successfully into PostgreSQL database!")
