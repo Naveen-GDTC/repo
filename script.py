@@ -33,7 +33,7 @@ df_table = df_table[1:]
 # df_table = df_table.set_index('')
 
 
-db_host = "192.168.1.223"
+db_host = "localhost"
 db_name = "reliance"
 db_user = "docker"
 db_password = "docker"
@@ -41,7 +41,6 @@ db_port = "5432"
 
 engine = create_engine(f'postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
 
-# Load the DataFrame into the PostgreSQL database
 df_table.to_sql('profit_loss_data', engine, if_exists='replace', index=False)
 
-print("Data loaded successfully into PostgreSQL database!")
+print("Data loaded successfully into PostgreSQL database")
