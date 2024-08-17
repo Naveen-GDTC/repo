@@ -23,8 +23,9 @@ for row in tdata.find_all('tr'):
 df_table = pd.DataFrame(table_data)
 df_table.iloc[0,0] = 'Section'
 df_table.columns = df_table.iloc[0]
-df_table = df_table[1:]
-# df_table = df_table.set_index('')
+df_table = df_table.iloc[1:,:-1]
+for i in df_table.iloc[:,1:].columns:
+    df_table[i] = df_table[i].str.replace(',','').str.replace('%','').apply(eval)
 
 
 db_host = "192.168.1.223" #"192.168.29.101"
@@ -35,6 +36,6 @@ db_port = "5432"
 
 engine = create_engine(f'postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
 
-df_table.to_sql('profit_loss_data', engine, if_exists='replace', index=False)
+df_table.to_sql('profit_loss_data', engine, if_exists='replace', index=True)
 
 print("Data loaded to PostgreSQL")
