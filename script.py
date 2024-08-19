@@ -28,7 +28,7 @@ for i in df_table.iloc[:,1:].columns:
     df_table[i] = df_table[i].str.replace(',','').str.replace('%','').apply(eval)
 
 
-db_host = "192.168.29.101" #"192.168.1.223" #
+db_host = "192.168.1.223" # "192.168.29.101" #
 db_name = "reliance"
 db_user = "docker"
 db_password = "docker"
