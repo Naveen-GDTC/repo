@@ -13,8 +13,8 @@ username = os.getenv('username')
 password = os.getenv('password')
 host_ip = os.getenv('host_ip')
 
-print("stcok_code ": stock_code)
-print("stcok_code1 ": stock_code1)
+print("stcok_code :" stock_code)
+print("stcok_code1 :" stock_code1)
 
 url = f'https://screener.in/company/{stock_code}/consolidated/'
 print(url)
