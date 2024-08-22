@@ -5,10 +5,10 @@ import pandas as pd
 import psycopg2
 from sqlalchemy import create_engine
 
-stock_code = os.getenv(stock_code)
-username = os.getenv(username)
-password = os.getenv(password)
-host_ip = os.getenv(host_ip)
+stock_code = os.getenv('stock_code')
+username = os.getenv('username')
+password = os.getenv('password')
+host_ip = os.getenv('host_ip')
 
 url = f'https://screener.in/company/{stock_code}/consolidated/'
 webpage = requests.get(url)
