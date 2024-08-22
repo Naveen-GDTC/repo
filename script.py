@@ -6,6 +6,9 @@ import os
 # from sqlalchemy import create_engine
 
 stock_code = os.environ.get('STOCK_CODE')
+stock_code = os.environ.get('stock_code')
+
+
 username = os.getenv('username')
 password = os.getenv('password')
 host_ip = os.getenv('host_ip')
