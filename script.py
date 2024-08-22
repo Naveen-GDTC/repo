@@ -6,14 +6,15 @@ import os
 # from sqlalchemy import create_engine
 
 stock_code = os.environ.get('STOCK_CODE')
-stock_code = os.environ.get('stock_code')
+stock_code1 = os.environ.get('stock_code')
 
 
 username = os.getenv('username')
 password = os.getenv('password')
 host_ip = os.getenv('host_ip')
 
-print(stock_code)
+print("stcok_code ": stock_code)
+print("stcok_code1 ": stock_code1)
 
 url = f'https://screener.in/company/{stock_code}/consolidated/'
 print(url)
