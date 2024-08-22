@@ -5,7 +5,7 @@ import os
 # import psycopg2
 # from sqlalchemy import create_engine
 
-stock_code = os.getenv('stock_code')
+stock_code = os.getenv('STOCK_CODE')
 username = os.getenv('username')
 password = os.getenv('password')
 host_ip = os.getenv('host_ip')
