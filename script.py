@@ -39,10 +39,10 @@ df_table['Stock'] = f"{stock_code}"
 df_table = df_table.reset_index()
 
 
-db_host = "host_ip" # "192.168.29.101" #
+db_host = host_ip # "192.168.29.101" #
 db_name = "reliance"
-db_user = "username"
-db_password = "password"
+db_user = username
+db_password = password
 db_port = "5432"
 
 engine = create_engine(f'postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
