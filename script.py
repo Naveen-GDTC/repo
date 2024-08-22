@@ -4,7 +4,7 @@ import pandas as pd
 import psycopg2
 from sqlalchemy import create_engine
 
-url = 'https://screener.in/company/RELIANCE/consolidated/'
+url = f'https://screener.in/company/{stock_code}/consolidated/'
 webpage = requests.get(url)
 soup = bs(webpage.text,'html.parser')
 
@@ -21,17 +21,22 @@ for row in tdata.find_all('tr'):
 
 
 df_table = pd.DataFrame(table_data)
-df_table.iloc[0,0] = 'Section'
+df_table= df_table.T
+df_table.iloc[0,0] = 'Year'
 df_table.columns = df_table.iloc[0]
-df_table = df_table.iloc[1:,:-1]
+df_table = df_table.iloc[1:]
+df_table = df_table.drop(df_table.index[-1])
 for i in df_table.iloc[:,1:].columns:
     df_table[i] = df_table[i].str.replace(',','').str.replace('%','').apply(eval)
 
+df_table['Stock'] = f"{stock_code}" 
+df_table = df_table.reset_index()
 
-db_host = "192.168.1.223" # "192.168.29.101" #
+
+db_host = "host_ip" # "192.168.29.101" #
 db_name = "reliance"
-db_user = "docker"
-db_password = "docker"
+db_user = "username"
+db_password = "password"
 db_port = "5432"
 
 engine = create_engine(f'postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
