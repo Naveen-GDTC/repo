@@ -50,25 +50,23 @@ def login(username, password):
     second_login_button.click()
 
 
-try:
-    driver.get("https://www.screener.in/company/RELIANCE/consolidated/")
 
-    export = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, '//*[contains(concat( " ", @class, " " ), concat( " ", "icon-download", " " ))]'))
-    )
-    export.click()
+driver.get("https://www.screener.in/company/RELIANCE/consolidated/")
 
-    login("firstscreener123@gmail.com", "Asdf!234")
+export = WebDriverWait(driver, 10).until(
+    EC.element_to_be_clickable((By.XPATH, '//*[contains(concat( " ", @class, " " ), concat( " ", "icon-download", " " ))]'))
+)
+export.click()
 
-    export = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, '//*[contains(concat( " ", @class, " " ), concat( " ", "icon-download", " " ))]'))
-    )
-    export.click()
+login("firstscreener123@gmail.com", "Asdf!234")
 
-    download_dir = current_dir
-    print("Files in download directory before wait:", os.listdir(download_dir))
+export = WebDriverWait(driver, 10).until(
+    EC.element_to_be_clickable((By.XPATH, '//*[contains(concat( " ", @class, " " ), concat( " ", "icon-download", " " ))]'))
+)
+export.click()
 
-finally:
-    driver.quit()
+download_dir = current_dir
+print("Files in download directory before wait:", os.listdir(download_dir))
+
 
 
