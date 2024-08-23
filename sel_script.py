@@ -7,15 +7,16 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 import time
 import os
-# usernames = ["firstscreener123@gmail.com"]
-# passwords = ["Asdf!234"]
-# def login_and_download_file(url, username, password, file_suffix):
+
+# Set up Chrome options
 chrome_options = Options()
-chrome_options.add_argument("--headless")
+chrome_options.add_argument("--headless")  # Run in headless mode
 chrome_options.add_argument("--disable-gpu")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--window-size=1920,1080")
+
+# Set download directory if needed
 current_dir = os.getcwd()
 prefs = {
     "download.default_directory": current_dir,
@@ -24,5 +25,16 @@ prefs = {
     "safebrowsing.enabled": True
 }
 chrome_options.add_experimental_option("prefs", prefs)
-service = Service('/usr/local/bin/chromedriver_linux64/chromedriver')
+
+# Specify the path to ChromeDriver
+service = Service('/usr/local/bin/chromedriver')
+
+# Initialize the WebDriver
 driver = webdriver.Chrome(service=service, options=chrome_options)
+
+# Example usage
+try:
+    driver.get("https://www.example.com")
+    print("Page title is:", driver.title)
+finally:
+    driver.quit()
