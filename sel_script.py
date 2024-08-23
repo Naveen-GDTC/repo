@@ -24,5 +24,5 @@ prefs = {
     "safebrowsing.enabled": True
 }
 chrome_options.add_experimental_option("prefs", prefs)
-service = Service('/usr/local/bin/chromedriver')
+service = Service('/usr/local/bin/chromedriver_linux64/chromedriver')
 driver = webdriver.Chrome(service=service, options=chrome_options)
