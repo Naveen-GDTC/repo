@@ -64,7 +64,7 @@ export = WebDriverWait(driver, 10).until(
     EC.element_to_be_clickable((By.XPATH, '//*[contains(concat( " ", @class, " " ), concat( " ", "icon-download", " " ))]'))
 )
 export.click()
-
+time.sleep(10)
 download_dir = current_dir
 print("Files in download directory before wait:", os.listdir(download_dir))
 
