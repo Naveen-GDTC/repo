@@ -71,5 +71,13 @@ download_dir = current_dir
 print("Files in download directory before wait:", os.listdir(download_dir))
 
 
-df = pd.read_excel('Reliance Industr.xlsx', sheet_name='Profit & Loss', header=2)
+df = pd.read_excel('Reliance Industr.xlsx', sheet_name='Data Sheet', header=14)
+df = df.head(16)
+
+df = df.rename(columns={'PROFIT & LOSS':''}).T
+df.columns = df.iloc[0]
+df = df.iloc[1:]
+df = df.reset_index(drop = True)
 print(df)
+
+
