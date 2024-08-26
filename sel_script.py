@@ -70,5 +70,5 @@ download_dir = current_dir
 print("Files in download directory before wait:", os.listdir(download_dir))
 
 
-df = pd.read_excel('Reliance Industr.xlsx.xlsx', sheet_name='Profit & Loss', header=2)
+df = pd.read_excel('Reliance Industr.xlsx', sheet_name='Profit & Loss', header=2)
 print(df)
