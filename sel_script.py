@@ -78,6 +78,8 @@ df = df.rename(columns={'PROFIT & LOSS':''}).T
 df.columns = df.iloc[0]
 df = df.iloc[1:]
 df = df.reset_index(drop = True)
+for i in df.iloc[:,1:].columns:
+    df[i] = df[i].astype('int')
 print(df)
 
 
