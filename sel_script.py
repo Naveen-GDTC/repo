@@ -8,6 +8,7 @@ from selenium.webdriver.chrome.service import Service
 import time
 import os
 import pandas as pd
+import openpyxl 
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")  # Run in headless mode
