@@ -7,6 +7,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.chrome.service import Service
 import time
 import os
+import pandas as pd
 
 chrome_options = Options()
 chrome_options.add_argument("--headless")  # Run in headless mode
@@ -64,9 +65,10 @@ export = WebDriverWait(driver, 10).until(
     EC.element_to_be_clickable((By.XPATH, '//*[contains(concat( " ", @class, " " ), concat( " ", "icon-download", " " ))]'))
 )
 export.click()
-time.sleep(10)
+time.sleep(15)
 download_dir = current_dir
 print("Files in download directory before wait:", os.listdir(download_dir))
 
 
-
+df = pd.read_excel('Reliance Industr.xlsx.xlsx', sheet_name='Profit & Loss', header=2)
+print(df)
