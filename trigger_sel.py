@@ -16,7 +16,7 @@ df = pd.read_excel(excel_file[0], sheet_name='Data Sheet', header=14)
 df = df.head(16)
 
 df = df.rename(columns={'PROFIT & LOSS':''}).T
-df.columns = df.iloc[0]
+df.columns = df.iloc[0].fillna(0)
 df = df.iloc[1:]
 df = df.reset_index(drop = True)
 for i in df.iloc[:,1:].columns:
