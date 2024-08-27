@@ -70,8 +70,11 @@ time.sleep(15)
 download_dir = current_dir
 print("Files in download directory before wait:", os.listdir(download_dir))
 
+files = os.listdir(download_dir)
+excel_file = [i for i in files if i.endswith('.xlsx')]
+print(excel_file)
 
-df = pd.read_excel('Reliance Industr.xlsx', sheet_name='Data Sheet', header=14)
+df = pd.read_excel(excel_file[0], sheet_name='Data Sheet', header=14)
 df = df.head(16)
 
 df = df.rename(columns={'PROFIT & LOSS':''}).T
