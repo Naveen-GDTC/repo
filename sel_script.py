@@ -10,6 +10,11 @@ import os
 import pandas as pd
 import openpyxl 
 
+
+stock_code = os.environ.get('STOCK_CODE')
+username = os.environ.get('USERNAME')
+password = os.environ.get('PASSWORD')
+
 chrome_options = Options()
 chrome_options.add_argument("--headless")  # Run in headless mode
 chrome_options.add_argument("--disable-gpu")
@@ -53,14 +58,14 @@ def login(username, password):
 
 
 
-driver.get("https://www.screener.in/company/RELIANCE/consolidated/")
+driver.get(f"https://www.screener.in/company/{stock_code}/consolidated/")
 
 export = WebDriverWait(driver, 10).until(
     EC.element_to_be_clickable((By.XPATH, '//*[contains(concat( " ", @class, " " ), concat( " ", "icon-download", " " ))]'))
 )
 export.click()
 
-login("firstscreener123@gmail.com", "Asdf!234")
+login(username, password)
 
 export = WebDriverWait(driver, 10).until(
     EC.element_to_be_clickable((By.XPATH, '//*[contains(concat( " ", @class, " " ), concat( " ", "icon-download", " " ))]'))
