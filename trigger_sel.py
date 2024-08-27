@@ -117,16 +117,24 @@ BEGIN
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
-
-CREATE TRIGGER trigger_log_profit_loss_data_sel_changes
-AFTER INSERT OR UPDATE OR DELETE ON profit_loss_data_sel
-FOR EACH ROW
-EXECUTE FUNCTION profit_loss_data_sel_changes();
 '''
 
 cur.execute(create_table_query)
 conn.commit()
 print("table created")
+
+trigger = '''
+CREATE TRIGGER trigger_log_profit_loss_data_sel_changes
+AFTER INSERT OR UPDATE OR DELETE ON profit_loss_data_sel
+FOR EACH ROW
+EXECUTE FUNCTION profit_loss_data_sel_changes();
+'''
+try:
+    cur.execute(trigger)
+    conn.commit()
+    print("trigger created")
+except psycopg2.Error as e:
+    print(f"Error executing SQL commands: {e}")
 
 insert_query = '''INSERT INTO profit_loss_data_sel (
     report_date, sales, raw_material_cost, change_in_inventory, power_and_fuel, other_mfr_exp,              
