@@ -135,6 +135,9 @@ try:
     print("trigger created")
 except psycopg2.Error as e:
     print(f"Error executing SQL commands: {e}")
+    conn.rollback()
+finally:
+    pass
 
 insert_query = '''INSERT INTO profit_loss_data_sel (
     report_date, sales, raw_material_cost, change_in_inventory, power_and_fuel, other_mfr_exp,              
