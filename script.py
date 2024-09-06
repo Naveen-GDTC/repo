@@ -80,7 +80,7 @@ INSERT INTO profit_loss_data (
 ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s);
 '''
 
-# for x, row in df_table.iterrows():
-#     cur.execute(insert_query, tuple(row))
-#     conn.commit() 
-#     print(f"Inserted data for year: {row['index']}")
+for x, row in df_table.iterrows():
+    cur.execute(insert_query, tuple(row))
+    conn.commit() 
+    print(f"Inserted data for year: {row['index']}")
