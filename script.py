@@ -42,7 +42,7 @@ db_params = {
     'dbname': 'reliance',
     'user': username,
     'password': password,
-    'host': host_ip
+    'host': host_ip,
     'port': 5432
 }
 
