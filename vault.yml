@@ -18,7 +18,7 @@ jobs:
             source: 
               repository: hashicorp/vault
           outputs:
-            - name: credentials # Store output in a folder
+            - name: credentials
           run:
             path: sh
             args:
@@ -26,23 +26,21 @@ jobs:
               - |
                 # Shell script to fetch credentials from Vault
                 export VAULT_ADDR='http://192.168.1.223:8200'
-                export VAULT_TOKEN='hvs.Xu2NTlVFcMSQeYeAEIToorWL'
+                export VAULT_TOKEN='token'
  
                 # Fetch credentials from Vault
                 USERNAME=$(vault kv get -field=username secret/cred)
                 PASSWORD=$(vault kv get -field=password secret/cred)
+                HOST_IP=$(vault kv get -field=host_ip secret/cred)
+                STOCK_CODE=$(vault kv get -field=stock_code secret/cred)
+                
  
                 # Store credentials in a file
                 echo $USERNAME > credentials/username.txt
                 echo $PASSWORD > credentials/password.txt
+                echo $HOST_IP > credentials/host.txt
+                echo $STOCK_CODE > credentials/stock_code.txt
 
-  - name: run-python-script
-    plan:
-      # - get: credentials # Fetch the output of the previous job
-        # trigger: true
-      
-      - get: repo
-        trigger: true
 
       - task: run-python-script
         config:
@@ -53,22 +51,28 @@ jobs:
               repository: python
               tag: "3.9"
           inputs:
-            # - name: credentials # Input the credentials from the previous job
+            - name: credentials 
             - name: repo
           run:
             path: sh
             args:
               - -c
               - |
-                # Install required libraries
+                # Installing required libraries
                 pip install bs4 
                 pip install pandas
                 pip install requests
-                pip install psycopg2
-                pip install SQLAlchemy 
+                pip install psycopg2 
 
                 # Read credentials from files
-                USERNAME=$(cat credentials/username.txt)
-                PASSWORD=$(cat credentials/password.txt)
+                export STOCK_CODE=$(cat credentials/stock_code.txt)
+                export USERNAME=$(cat credentials/username.txt)
+                export PASSWORD=$(cat credentials/password.txt)
+                export HOST_IP=$(cat credentials/host.txt)
+
+                echo "USERNAME: $USERNAME"
+                echo "PASSWORD: $PASSWORD"
+                echo "HOST_IP: $HOST_IP"
+                echo "STOCK_CODE: $STOCK_CODE"
  
                 python3 repo/script.py
