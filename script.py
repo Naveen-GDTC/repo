@@ -3,7 +3,6 @@ import requests
 from bs4 import BeautifulSoup as bs
 import pandas as pd
 import psycopg2
-from sqlalchemy import create_engine
 
 stock_code = os.environ.get('STOCK_CODE')
 username = os.environ.get('USERNAME')
@@ -39,14 +38,49 @@ df_table['Stock'] = f"{stock_code}"
 df_table = df_table.reset_index()
 
 
-db_host = host_ip # "192.168.29.101" #
-db_name = "reliance"
-db_user = username
-db_password = password
-db_port = "5432"
+db_params = {
+    'dbname': 'reliance',
+    'user': username,
+    'password': password,
+    'host': host_ip
+    'port': 5432
+}
 
-engine = create_engine(f'postgresql+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}')
+conn = psycopg2.connect(**db_params)
 
-df_table.to_sql('profit_loss_data', engine, if_exists='replace', index=True)
+cur = conn.cursor()
 
-print("Data loaded to PostgreSQL")
+create_table_query = '''
+CREATE TABLE IF NOT EXISTS profit_loss_data (
+    index BIGINT primary key,
+    Year TEXT,
+    Sales BIGINT,
+    Expenses BIGINT,
+    Operating_Profit BIGINT,
+    OPM_Percent INTEGER,
+    Other_Income BIGINT,
+    Interest BIGINT,
+    Depreciation BIGINT,
+    Profit_before_tax BIGINT,
+    Tax_Percent INTEGER,
+    Net_Profit BIGINT,
+    EPS_in_Rs DOUBLE PRECISION,
+    Dividend_Payout_Percent INTEGER,
+    Stock TEXT
+);
+'''
+cur.execute(create_table_query)
+conn.commit()
+print("Table created")
+
+insert_query = '''
+INSERT INTO profit_loss_data (
+    Index,Year, Sales, Expenses, Operating_Profit, OPM_Percent, Other_Income, Interest, Depreciation,
+    Profit_before_tax, Tax_Percent, Net_Profit, EPS_in_Rs,Dividend_Payout_Percent, Stock
+) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s);
+'''
+
+for x, row in df_table.iterrows():
+    cur.execute(insert_query, tuple(row))
+    conn.commit() 
+    print(f"Inserted data for year: {row['index']}")
