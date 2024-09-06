@@ -36,7 +36,7 @@ for i in df_table.iloc[:,1:].columns:
 
 df_table['Stock'] = f"{stock_code}" 
 df_table = df_table.reset_index()
-
+print(df_table)
 
 db_params = {
     'dbname': 'reliance',
@@ -80,7 +80,7 @@ INSERT INTO profit_loss_data (
 ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s,%s,%s);
 '''
 
-for x, row in df_table.iterrows():
-    cur.execute(insert_query, tuple(row))
-    conn.commit() 
-    print(f"Inserted data for year: {row['index']}")
+# for x, row in df_table.iterrows():
+#     cur.execute(insert_query, tuple(row))
+#     conn.commit() 
+#     print(f"Inserted data for year: {row['index']}")
